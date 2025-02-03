@@ -1,12 +1,17 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
-a = [0]*n
+rgb = [[0, 0, 0]]
+for _ in range(n):
+    rgb.append(list(map(int, input().split())))
 
-for i in range(n):
-    a[i] = list(map(int,input().split()))
-    
-for i in range(1,n): # 1부터 시작하는 이유는 다음 입력값이 이전 입력값의 최소값을 사용하기때문이다
-    a[i][0]= min(a[i-1][1],a[i-1][2]) + a[i][0]
-    a[i][1]= min(a[i-1][0],a[i-1][2]) + a[i][1]
-    a[i][2]= min(a[i-1][0],a[i-1][1]) + a[i][2]
+dp = [[0, 0, 0] for _ in range(n+1)]
+dp[1] = rgb[1]
 
-print(min(a[n-1][0],a[n-1][1],a[n-1][2]))
+for i in range(2, n+1):
+    dp[i][0] = min(dp[i-1][1], dp[i-1][2]) + rgb[i][0]
+    dp[i][1] = min(dp[i-1][0], dp[i-1][2]) + rgb[i][1]
+    dp[i][2] = min(dp[i-1][1], dp[i-1][0]) + rgb[i][2]
+
+print(min(dp[n]))
