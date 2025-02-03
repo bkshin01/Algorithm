@@ -1,50 +1,43 @@
-import sys
 import copy
-sys.setrecursionlimit(10**6)
+import sys
 input = sys.stdin.readline
 
 dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
-
 def DFS(graph, x, y, r):
-    visited = []
     stack = [(x, y)]
-    
+
     while stack:
         cx, cy = stack.pop()
-        if (cx, cy) not in visited:
-            visited.append((cx, cy))
+        if graph[cx][cy] > r:
             graph[cx][cy] = 0
             for i in range(4):
                 nx = cx + dx[i]
                 ny = cy + dy[i]
-                if nx < 0 or nx >= n or ny < 0 or ny >= n:
+                if nx<0 or nx>=n or ny<0 or ny>=n:
                     continue
-                elif tmp[nx][ny] <= r:
+                elif graph[nx][ny] <= r:
                     continue
                 else:
-                    DFS(graph, nx, ny, r)
+                    stack.append((nx, ny))
 
 n = int(input())
-org_graph = []
-MAX = 0
+graph = []
+m = 0
 for i in range(n):
-    org_graph.append(list(map(int, input().split())))
-    if max(org_graph[i]) > MAX:
-        MAX = max(org_graph[i])
+    graph.append(list(map(int, input().split())))
+    if max(graph[i]) > m:
+        m = max(graph[i])
 
-rain_cnt = []
-for r in range(1, MAX):
-    rainfall = r
+result = [0] * (m+1)
+for rainfall in range(m):
     cnt = 0
-    tmp = copy.deepcopy(org_graph)
+    tmp = copy.deepcopy(graph)
     for i in range(n):
         for j in range(n):
-            if tmp[i][j] > r:
+            if tmp[i][j] > rainfall:
                 DFS(tmp, i, j, rainfall)
                 cnt += 1
-    rain_cnt.append(cnt)
-if len(rain_cnt) > 0:
-    print(max(rain_cnt))
-else:
-    print(1)
+    result[rainfall] = cnt
+
+print(max(result))
