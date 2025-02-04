@@ -1,29 +1,27 @@
-from collections import deque
 import sys
 input = sys.stdin.readline
 
-def DFS(start, target, chon, visited):
-    chon += 1
-    visited.append(start)
+def DFS(s, t):
+    stack = [s]
+    cnt = [-1] * (n+1)
 
-    if target in graph[start]:
-        print(chon)
-        exit()
-
-    for node in graph[start]:
-        if node not in visited:
-            DFS(node, target, chon, visited)
-
+    while stack:
+        curr = stack.pop()
+        if curr == t:
+            return cnt[t]+1 # -1로 초기화되어 있었기 때문
+        for neighbor in graph[curr]:
+            if cnt[neighbor] == -1:
+                cnt[neighbor] = cnt[curr] + 1
+                stack.append(neighbor)
+    return cnt[t]
+        
 n = int(input())
-ta, tb = map(int, input().split())
-m = int(input())
 graph = [[] for _ in range(n+1)]
+start, target = map(int, input().split())
+m = int(input())
 for _ in range(m):
     a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
-visited = []
-
-DFS(ta, tb, 0, [])
-print(-1)
+print(DFS(start, target))
