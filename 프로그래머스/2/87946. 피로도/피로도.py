@@ -1,18 +1,17 @@
 answer = 0
 
-def dfs(k, cnt, dungeons, visited):
+def DFS(k, cnt, dungeons, visited):
     global answer
     if cnt > answer:
         answer = cnt
-    
     for i in range(len(dungeons)):
-        if not visited[i] and k >= dungeons[i][0]:
+        if k >= dungeons[i][0] and not visited[i]:
             visited[i] = True
-            dfs(k - dungeons[i][1], cnt+1, dungeons, visited)
+            DFS(k - dungeons[i][1], cnt + 1, dungeons, visited)
             visited[i] = False
 
 def solution(k, dungeons):
-    global answer
-    visited = [False] * len(dungeons)
-    dfs(k, 0, dungeons, visited)
+    n = len(dungeons)
+    visited = [False] * n
+    DFS(k, 0, dungeons, visited)
     return answer
