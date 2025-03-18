@@ -1,18 +1,20 @@
+from collections import defaultdict
+
+def DFS(node, graph, route):
+    while graph[node]:
+        nxt = graph[node].pop(0)
+        DFS(nxt, graph, route)
+    route.append(node)
+
 def solution(tickets):
-    graph = {}
-    for de, ar in tickets:
-        graph[de] = graph.get(de, []) + [ar]
-    for i in graph:
-        graph[i].sort(reverse=True)
+    graph = defaultdict(list)
     
-    stack = ["ICN"]
-    path = []
-    while stack:
-        top = stack[-1]
-        if top not in graph or len(graph[top]) == 0:
-            path.append(stack.pop())
-        else:
-            stack.append(graph[top][-1])
-            graph[top] = graph[top][:-1]
-    return path[::-1]
-            
+    for de, ar in tickets:
+        graph[de].append(ar)
+    for key in graph:
+        graph[key].sort()
+    
+    route = []
+    DFS("ICN", graph, route)
+    
+    return route[::-1]
