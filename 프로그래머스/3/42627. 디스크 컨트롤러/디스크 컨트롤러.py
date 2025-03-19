@@ -1,20 +1,24 @@
-from collections import deque
 from heapq import heappop, heappush
 
 def solution(jobs):
-    tasks = deque(sorted([(x[1], x[0]) for x in jobs], key=lambda x: (x[1], x[0])))
-    q = []
-    heappush(q, tasks.popleft())
-    cur, result = 0, 0
-    
-    while q:
-        duration, arrive = heappop(q)
-        cur = max(cur+duration, arrive+duration)
-        result += (cur - arrive)
-        
-        while tasks and tasks[0][1] <= cur:
-            heappush(q, tasks.popleft())
-        
-        if tasks and len(q) == 0:
-            heappush(q, tasks.popleft())
-    return result // len(jobs)
+		result = 0
+		curtime = 0
+		cnt = 0
+		start = -1
+		heap = []
+		n = len(jobs)
+	
+		while cnt < n:
+				for j in jobs:
+						if start < j[0] <= curtime:
+								heappush(heap, [j[1], j[0]])
+				if heap:
+						tmp = heappop(heap)
+						start = curtime
+						curtime += tmp[0]
+						result += (curtime-tmp[1])
+						cnt += 1
+				else:
+						curtime += 1
+		
+		return result // n
