@@ -1,15 +1,21 @@
 def solution(numbers, target):
+    n = len(numbers)
+    h = 0
+    tree = []
+    tree.append([0])
+    
+    while h < n:
+        parents = tree[h]
+        tree.append([])
+        nxt = tree[h+1]
+        for p in parents:
+            nxt.append(p+numbers[h])
+            nxt.append(p-numbers[h])
+        h += 1
+    
     answer = 0
-    leaves = [0]
-    for num in numbers:
-        tmp = []
-        for parent in leaves:
-            tmp.append(parent + num)
-            tmp.append(parent - num)
-        leaves = tmp
-    
-    for leaf in leaves:
-        if leaf == target:
+    for i in tree[h]:
+        if i == target:
             answer += 1
-    
+                
     return answer
