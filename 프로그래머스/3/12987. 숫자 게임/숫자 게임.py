@@ -1,11 +1,12 @@
+from collections import deque
+
 def solution(A, B):
     answer = 0
-    A.sort(reverse = True)
-    B.sort(reverse = True)
-    for a in A:
-        if a >= B[0]:
-            continue
-        else:
+    A.sort(reverse=True)
+    B.sort(reverse=True)
+    B = deque(B)
+    for i in range(len(A)):
+        if A[i] < B[0]:
             answer += 1
-            del B[0]
+            B.popleft()
     return answer
