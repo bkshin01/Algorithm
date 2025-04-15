@@ -1,11 +1,8 @@
 def solution(sizes):
-    w, h = [], []
-    for size in sizes:
-        a, b = size[0], size[1]
-        if a > b:
-            w.append(a)
-            h.append(b)
-        else:
-            w.append(b)
-            h.append(a)
-    return max(w)*max(h)
+    w, h = 0, 0
+    for s in sizes:
+        if max(s) > w:
+            w = max(s)
+        if min(s) > h:
+            h = min(s)
+    return w*h
