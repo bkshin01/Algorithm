@@ -1,24 +1,24 @@
 from itertools import permutations
 
-def prime_check(num):
-    if(num <= 1):
+def is_prime(num):
+    if num <= 1:
         return False
     for i in range(2, int(num**0.5)+1):
-        if num % i == 0:
+        if num%i == 0:
             return False
     return True
-    
-def solution(numbers):
-    arr = list(numbers)
-    nums = set()
-    for i in range(1, len(numbers)+1):
-        p_list = permutations(arr, i)
-        for p in p_list:
-            num = int(''.join(p))
-            nums.add(num)
 
-    count = 0
-    for num in nums:
-        if prime_check(num):
-            count+=1
-    return count
+def solution(numbers):
+    numbers = list(numbers)
+    all_set = set()
+    for i in range(1, len(numbers)+1):
+        perm = permutations(numbers, i)
+        for p in perm:
+            num = int(''.join(p))
+            all_set.add(num)
+    
+    answer = 0
+    for n in all_set:
+        if is_prime(n):
+            answer += 1
+    return answer
