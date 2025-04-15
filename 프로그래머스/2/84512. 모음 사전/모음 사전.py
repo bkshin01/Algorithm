@@ -1,13 +1,14 @@
 def solution(word):
     answer = 0
-    dict = []
+    dic = []
     vowel = 'AEIOU'
     
-    def dfs(length, w):
-        if length == 5:
+    def dfs(l, w):
+        if l == 5:
             return
-        for i in range(len(vowel)):
-            dict.append(w + vowel[i])
-            dfs(length + 1, w + vowel[i])
+        for i in range(5):
+            dic.append(w + vowel[i])
+            dfs(l+1, w+vowel[i])
+    
     dfs(0, '')
-    return dict.index(word) + 1
+    return dic.index(word) + 1
