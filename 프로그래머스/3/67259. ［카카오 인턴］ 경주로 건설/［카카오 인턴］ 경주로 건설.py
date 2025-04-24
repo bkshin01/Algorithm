@@ -29,4 +29,4 @@ def solution(board):
                 
         return visited[-1][-1]
 
-    return min([BFS(0), BFS(1), BFS(2), BFS(3)])
+    return min([BFS(0), BFS(2)])
