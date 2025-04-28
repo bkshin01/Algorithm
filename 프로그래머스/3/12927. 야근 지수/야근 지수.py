@@ -1,20 +1,22 @@
 from heapq import heappop, heappush
 
 def solution(n, works):
-    q = []
+    result = 0
+    arr = []
+    
     for w in works:
-        heappush(q, -w)
-        
+        heappush(arr, -w)
+    
     while n:
-        cur = heappop(q)
+        cur = -heappop(arr)
         if cur == 0:
             return 0
-        tmp = cur+1
-        heappush(q, tmp)
-        n -= 1
+        else:
+            cur -= 1
+            heappush(arr, -cur)
+            n -= 1
     
-    answer = 0
-    for i in q:
-        answer += (i**2)
-    
-    return answer
+    for a in arr:
+        result += (a**2)
+        
+    return result
