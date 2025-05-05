@@ -1,15 +1,14 @@
 def solution(numbers, target):
-    leaves = [[] for _ in range(len(numbers))]
-    leaves[0] = [numbers[0], -numbers[0]]
+    arr = [numbers[0], -numbers[0]]
+    for n in numbers[1:]:
+        tmp = []
+        for a in arr:
+            tmp.append(a+n)
+            tmp.append(a-n)
+        arr = tmp
     
-    for i in range(len(numbers)-1):
-        parents = leaves[i]
-        for p in parents:
-            leaves[i+1].append(p+numbers[i+1])
-            leaves[i+1].append(p-numbers[i+1])
-
     answer = 0
-    for l in leaves[-1]:
-        if l == target:
+    for a in arr:
+        if a == target:
             answer += 1
     return answer
