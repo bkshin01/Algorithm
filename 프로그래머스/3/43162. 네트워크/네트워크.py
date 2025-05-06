@@ -1,19 +1,19 @@
 from collections import deque
 
-def BFS(start, graph, visited):
+def BFS(start, visited, graph):
     q = deque([start])
     while q:
         cur = q.popleft()
         visited[cur] = True
-        for nxt, i in enumerate(graph[cur-1]):
-            if i == 1 and (nxt+1) != cur and not visited[nxt+1]:
-                q.append(nxt+1)
-    
+        for nxt, con in enumerate(graph[cur]):
+            if nxt != cur and con == 1 and not visited[nxt]:
+                q.append(nxt)
+
 def solution(n, computers):
     answer = 0
-    visited = [False] * (n+1)
-    for com in range(1, n+1):
-        if not visited[com]:
+    connected = [False] * n
+    for i in range(n):
+        if not connected[i]:
+            BFS(i, connected, computers)
             answer += 1
-            BFS(com, computers, visited)
     return answer
