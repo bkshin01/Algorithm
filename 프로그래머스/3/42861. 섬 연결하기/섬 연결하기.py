@@ -1,15 +1,15 @@
 def solution(n, costs):
-    answer = 0
-    costs.sort(key=lambda x: x[2])
-    link = set([costs[0][0]])
+    costs.sort(key=lambda x:x[2])
+    linked = set([costs[0][0]])
+    result = 0
     
-    while len(link) != n:
+    while len(linked) != n:
         for s, e, c in costs:
-            if s in link and e in link:
+            if s in linked and e in linked:
                 continue
-            if s in link or e in link:
-                link.update([s, e])
-                answer += c
+            elif s in linked or e in linked:
+                linked.update([s, e])
+                result += c
                 break
-                
-    return answer
+    
+    return result
