@@ -1,12 +1,11 @@
+from collections import deque
+
 def solution(people, limit):
-    people.sort()
-    l, r = 0, len(people) - 1
-    answer = 0
-    
-    while l <= r:
-        if people[l] + people[r] <= limit:
-            l += 1
-        r -= 1
-        answer += 1
-    
-    return answer
+    people = deque(sorted(people))
+    result = 0
+    while people:
+        cur = people.pop()
+        if people and people[0] + cur <= limit:
+            people.popleft()
+        result += 1
+    return result
