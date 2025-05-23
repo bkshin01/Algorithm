@@ -1,13 +1,8 @@
 def solution(arr):
-    s = []
+    stack = []
     for num in arr:
-        if len(s) == 0:
-            s.append(num)
+        if stack and stack[-1] == num:
+            continue
         else:
-            top = s[-1]
-            if top == num:
-                continue
-            else:
-                s.append(num)
-    return s
-                
+            stack.append(num)
+    return stack
