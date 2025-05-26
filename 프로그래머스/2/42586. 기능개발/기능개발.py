@@ -1,16 +1,17 @@
 def solution(progresses, speeds):
-    answer = []
+    result = []
     while progresses:
-        cnt = 0
         n = len(progresses)
         for i in range(n):
             progresses[i] += speeds[i]
         
-        while len(progresses) > 0 and progresses[0] >= 100:
+        cnt = 0
+        while progresses and progresses[0] >= 100:
             cnt += 1
             progresses.pop(0)
             speeds.pop(0)
-
+        
         if cnt > 0:
-            answer.append(cnt)
-    return answer
+            result.append(cnt)
+    
+    return result
