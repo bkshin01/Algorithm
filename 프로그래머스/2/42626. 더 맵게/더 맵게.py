@@ -1,22 +1,13 @@
-from heapq import heappush, heappop
+from heapq import heappush, heappop, heapify
 
 def solution(scoville, K):
-    answer = 0
-    q = []
-    for s in scoville:
-        heappush(q, s)
-    
-    while len(q) > 1:
-        front = heappop(q)
-        if front >= K:
-            return answer
-        else:
-            new_s = front + (heappop(q) * 2)
-            heappush(q, new_s)
-            answer += 1
-    
-    front = heappop(q)
-    if front >= K:
-        return answer
-    else:
-        return -1
+    result = 0
+    heapify(scoville)
+    front = heappop(scoville)
+    while front < K:
+        if len(scoville) == 0:
+            return -1
+        heappush(scoville, front + 2 * (heappop(scoville)))
+        front = heappop(scoville)
+        result += 1
+    return result
