@@ -1,13 +1,18 @@
+from collections import deque
+
 def solution(priorities, location):
-    q = []
-    for i, p in enumerate(priorities):
-        q.append((i, p))
-    answer = 0
-    while True:
-        front = q.pop(0)
-        if any(front[1] < i[1] for i in q):
-            q.append(front)
+    trace = deque([0 for _ in range(len(priorities))])
+    trace[location] = 1
+    q = deque(priorities)
+    cnt = 1
+    
+    while q:
+        cur = q.popleft()
+        if q and cur < max(q):
+            q.append(cur)
+            trace.append(trace.popleft())
+        elif trace[0] == 1:
+            return cnt
         else:
-            answer += 1
-            if front[0] == location:
-                return answer
+            trace.popleft()
+            cnt += 1
