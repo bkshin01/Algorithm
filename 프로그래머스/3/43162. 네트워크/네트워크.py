@@ -10,10 +10,10 @@ def BFS(start, visited, graph):
                 q.append(nxt)
 
 def solution(n, computers):
-    answer = 0
+    result = 0
     connected = [False] * n
     for i in range(n):
         if not connected[i]:
             BFS(i, connected, computers)
-            answer += 1
-    return answer
+            result += 1
+    return result
