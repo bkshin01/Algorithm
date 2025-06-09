@@ -1,16 +1,11 @@
 def solution(n, lost, reserve):
-    l_set = set(lost)
-    r_set = set(reserve)
+    r_list = list((set(reserve) - set(lost)))
+    l_list = list((set(lost) - set(reserve)))
     
-    lost = sorted(l_set-r_set)
-    reserve = sorted(r_set-l_set)
-    
-    for l in lost[:]:
-        if l - 1 in reserve:
-            lost.remove(l)
-            reserve.remove(l - 1)
-        elif l+1 in reserve:
-            lost.remove(l)
-            reserve.remove(l + 1)
+    for r in r_list:
+        if r-1 in l_list:
+            l_list.remove(r-1)
+        elif r+1 in l_list:
+            l_list.remove(r+1)
             
-    return n - len(lost)
+    return n-len(l_list)
