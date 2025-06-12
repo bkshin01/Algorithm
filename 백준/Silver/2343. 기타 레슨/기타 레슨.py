@@ -2,24 +2,26 @@ import sys
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-time = list(map(int, input().split()))
-s=max(time)
-e=sum(time)
+lectures = list(map(int, input().split()))
 
-while s<=e:
-    mid = (s+e)//2
-    total = 0
+result = 0
+low, high = max(lectures), sum(lectures)
+
+while low <= high:
+    mid = (low + high) // 2
     cnt = 1
-    for t in time:
-        if total + t > mid:
+    total = 0
+    
+    for l in lectures:
+        if total + l > mid:
             cnt += 1
             total = 0
-        total += t
+        total += l
     
     if cnt <= m:
-        answer = mid
-        e = mid-1
+        result = mid
+        high = mid - 1
     else:
-        s = mid+1
-        
-print(answer)
+        low = mid + 1
+
+print(result)
