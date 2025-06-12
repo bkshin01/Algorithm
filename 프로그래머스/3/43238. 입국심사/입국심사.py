@@ -1,18 +1,18 @@
 def solution(n, times):
-    l, r = 1, max(times) * n
-    while l <= r:
-        mid = (l+r) // 2
-        done_people = 0
+    s, e = 1, max(times) * n
+    while s <= e:
+        mid = (s + e) // 2
+        complete = 0
         
         for t in times:
-            done_people += mid // t
-            if done_people >= n:
+            complete += mid // t
+            if complete >= n:
                 break
-        
-        if done_people >= n:
-            answer = mid
-            r = mid - 1
+                
+        if complete >= n:
+            result = mid
+            e = mid - 1
         else:
-            l = mid + 1
+            s = mid + 1
             
-    return answer
+    return result
