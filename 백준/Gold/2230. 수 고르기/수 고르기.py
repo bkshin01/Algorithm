@@ -10,7 +10,7 @@ nums.sort()
 diff = 2 * 10**9
 l, r = 0, 0
 
-while l <= r and r < n:
+while r < n:
     tmp = nums[r] - nums[l]
 
     if tmp == m:
